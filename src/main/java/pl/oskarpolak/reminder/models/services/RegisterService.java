@@ -13,7 +13,7 @@ public class RegisterService {
     }
 
     public boolean doRegister(UserModel userModel) throws IOException {
-        if(!checkLoginIsFree(userModel.getUsername())){
+        if(checkLoginIsFree(userModel.getUsername())){
             return false;
         }
 
@@ -23,7 +23,6 @@ public class RegisterService {
 
     private boolean checkLoginIsFree(String username) throws IOException {
         List<UserModel> userModelList = fileService.readUserModels();
-        return userModelList.stream()
-                .anyMatch(s -> s.getUsername().equals(username));
+        return userModelList.stream().anyMatch(s -> s.getUsername().equals(username));
     }
 }

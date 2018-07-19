@@ -41,4 +41,8 @@ public class LoginView {
     public void showLoginBusyOrPasswordRepeatIncorrect() {
         System.out.println("Login jest juz zajety, albo zle powtorzyles haslo");
     }
+
+    public void showIncorrectLoginData(){
+        System.out.println("Nie prawidłowe dane logowania!");
+    }
 }

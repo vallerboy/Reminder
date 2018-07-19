@@ -48,7 +48,7 @@ public class FileService {
     public void addUserToFile(UserModel userModel) throws IOException {
         File file = new File(ConfigModel.PATH_TO_FILE_ACCOUNT);
 
-        String userAsString = userModel.getUsername() + ":" + userModel.getPassword() + "\r\n";
+        String userAsString = userModel.getUsername() + ConfigModel.IN_FILE_SEPARATOR + userModel.getPassword() + "\r\n";
         Files.write(file.toPath(), userAsString.getBytes(), StandardOpenOption.APPEND);
     }
 

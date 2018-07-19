@@ -9,7 +9,7 @@ import pl.oskarpolak.reminder.views.LoginView;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class LoginController {
+public class AuthController {
     private LoginView loginView;
     private LoginService loginService;
     private RegisterService registerService;
@@ -18,7 +18,7 @@ public class LoginController {
 
     private Scanner scanner;
 
-    public LoginController() {
+    public AuthController() {
         loginView = new LoginView();
         loginService = new LoginService();
         registerService = new RegisterService();
@@ -106,6 +106,10 @@ public class LoginController {
                 loginView.showErrorWithFileOnLoginPage();
                 e.printStackTrace();
                 System.exit(-1);
+            }
+
+            if(!isLogin){
+                loginView.showIncorrectLoginData();
             }
         }while (!isLogin);
 

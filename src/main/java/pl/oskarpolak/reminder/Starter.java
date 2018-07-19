@@ -1,10 +1,9 @@
 package pl.oskarpolak.reminder;
 
-import pl.oskarpolak.reminder.controllers.LoginController;
-import pl.oskarpolak.reminder.views.LoginView;
+import pl.oskarpolak.reminder.controllers.AuthController;
 
 public class Starter {
     public static void main(String[] args) {
-        new LoginController().start();
+        new AuthController().start();
     }
 }
