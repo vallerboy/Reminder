@@ -1,0 +1,4 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+*.iml
+/src/main/java/pl/oskarpolak/reminder/models/ConfigModel.java
