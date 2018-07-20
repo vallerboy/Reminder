@@ -34,6 +34,22 @@ public class TaskModel {
         this.date = date;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

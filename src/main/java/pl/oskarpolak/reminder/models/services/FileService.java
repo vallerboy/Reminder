@@ -4,6 +4,7 @@ import pl.oskarpolak.reminder.models.ConfigModel;
 import pl.oskarpolak.reminder.models.TaskModel;
 import pl.oskarpolak.reminder.models.UserModel;
 import pl.oskarpolak.reminder.models.Utils;
+import sun.security.krb5.Config;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,4 +53,18 @@ public class FileService {
         Files.write(file.toPath(), userAsString.getBytes(), StandardOpenOption.APPEND);
     }
 
+    public void addTaskToFile(TaskModel model) throws IOException {
+        File file = new File(ConfigModel.PATH_TO_FILE_TASKS);
+
+        String taskAsString = model.getOwner() +
+                ConfigModel.IN_FILE_SEPARATOR +
+                model.isDone() +
+                ConfigModel.IN_FILE_SEPARATOR +
+                model.getContext() +
+                ConfigModel.IN_FILE_SEPARATOR +
+                Utils.dateToString(model.getDate()) +
+                "\r\n";
+
+        Files.write(file.toPath(), taskAsString.getBytes(), StandardOpenOption.APPEND);
+    }
 }

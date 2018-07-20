@@ -1,21 +1,26 @@
 package pl.oskarpolak.reminder.controllers;
 
+import pl.oskarpolak.reminder.models.TaskModel;
 import pl.oskarpolak.reminder.models.UserInstance;
 import pl.oskarpolak.reminder.models.UserModel;
+import pl.oskarpolak.reminder.models.Utils;
+import pl.oskarpolak.reminder.models.services.TaskService;
 import pl.oskarpolak.reminder.views.MainView;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MainController {
     private UserInstance userInstance = UserInstance.getInstance();
     private MainView mainView;
+    private TaskService taskService;
     private Scanner scanner;
 
     public MainController() {
         mainView = new MainView();
         scanner = new Scanner(System.in);
-
+        taskService = new TaskService();
     }
 
     public void start() {
@@ -23,6 +28,7 @@ public class MainController {
 
         String answer;
         do{
+            mainView.showMenu();
             mainView.getFromUserChoice();
             answer = scanner.nextLine();
 
@@ -32,7 +38,7 @@ public class MainController {
                       break;
                 }
                 case "2":{
-                      makeTaskDone();
+                      //makeTaskDone();
                       break;
                 }
                 default: {
@@ -45,7 +51,7 @@ public class MainController {
 
     private void addTask() {
         String context, date;
-            do {
+
                 mainView.showGetContextText();
                 context = scanner.nextLine();
 
@@ -53,22 +59,17 @@ public class MainController {
                 date = scanner.nextLine();
 
 
-
+                TaskModel taskModel =
+                        new TaskModel(userInstance.getUsername(), false, context, Utils.stringToDate(date));
                 try {
-                    isRegister = registerService.doRegister(userModel);
+                    taskService.addTask(taskModel);
                 } catch (IOException e) {
-                    loginView.showErrorWithFileOnLoginPage();
                     e.printStackTrace();
                     System.exit(-1);
                 }
-                if(!isRegister){
-                    loginView.showLoginBusyOrPasswordRepeatIncorrect();
-                }
-            }while (!isRegister);
 
-
-            //tutaj juz ktos jest zarejestrowany!
-            startNewActivity(username);
+             mainView.showAddedTask();
         }
     }
-}
+
+

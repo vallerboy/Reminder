@@ -12,4 +12,10 @@ public class Utils {
         return LocalDate.parse(date, dateTimeFormatter);
     }
 
+
+    public static String dateToString(LocalDate date) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(ConfigModel.DATE_FORMAT);
+        return dateTimeFormatter.format(date);
+    }
+
 }

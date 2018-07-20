@@ -29,4 +29,8 @@ public class MainView {
         System.out.println("Podaj date, w formacie " + ConfigModel.DATE_FORMAT);
         System.out.print("Data: ");
     }
+
+    public void showAddedTask(){
+        System.out.println("Dodałes nowe zadanie!");
+    }
 }
