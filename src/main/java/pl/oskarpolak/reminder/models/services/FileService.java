@@ -38,7 +38,7 @@ public class FileService {
         for (String s : listOfString) {
             String[] simpleData = s.split(":");
             tasks.add(new TaskModel(simpleData[0],
-                    Boolean.getBoolean(simpleData[1]),
+                    Boolean.valueOf(simpleData[1]),
                     simpleData[2],
                     Utils.stringToDate(simpleData[3])));
         }
@@ -66,5 +66,11 @@ public class FileService {
                 "\r\n";
 
         Files.write(file.toPath(), taskAsString.getBytes(), StandardOpenOption.APPEND);
+    }
+
+    public void clearTaskFile() throws IOException {
+        File file = new File(ConfigModel.PATH_TO_FILE_TASKS);
+
+        Files.write(file.toPath(), "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

@@ -9,6 +9,8 @@ import pl.oskarpolak.reminder.views.MainView;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainController {
@@ -28,6 +30,7 @@ public class MainController {
 
         String answer;
         do{
+            mainView.showTasksForToday(getTasksForToday());
             mainView.showMenu();
             mainView.getFromUserChoice();
             answer = scanner.nextLine();
@@ -38,7 +41,7 @@ public class MainController {
                       break;
                 }
                 case "2":{
-                      //makeTaskDone();
+                      makeTaskDone();
                       break;
                 }
                 default: {
@@ -47,6 +50,39 @@ public class MainController {
             }
 
         }while (!answer.equals("exit"));
+    }
+
+    private List<TaskModel> getTasksForToday(){
+        List<TaskModel> taskModelList;
+        try {
+            taskModelList =  taskService.getTasksForUser(userInstance.getUsername(), LocalDate.now());
+        } catch (IOException e) {
+            taskModelList = Collections.emptyList();
+            e.printStackTrace();
+        }
+
+        return taskModelList;
+    }
+
+    private void makeTaskDone() {
+        List<TaskModel> taskModels = getTasksForToday();
+
+        mainView.getTaskToDoneId();
+        String taskId = scanner.nextLine();
+
+        TaskModel chooseTask = taskModels.get(Integer.valueOf(taskId));
+        if(!chooseTask.isDone()){
+            chooseTask.setDone(true);
+            try {
+                taskService.updateTask(chooseTask);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            mainView.showThisTaskIsAlreadyDone();
+        }
+
+
     }
 
     private void addTask() {
