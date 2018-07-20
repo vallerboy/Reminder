@@ -21,7 +21,7 @@ public class FileService {
         List<String> listOfString = Files.readAllLines(file.toPath());
         List<UserModel> userModels = new ArrayList<>();
         for (String s : listOfString) {
-            String[] simpleData = s.split(":");
+            String[] simpleData = s.split(ConfigModel.IN_FILE_SEPARATOR);
             userModels.add(new UserModel(simpleData[0], simpleData[1]));
         }
 

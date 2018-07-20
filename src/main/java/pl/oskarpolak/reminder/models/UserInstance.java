@@ -11,6 +11,7 @@ public class UserInstance {
     private String username;
 
     private UserInstance() {
+
     }
 
 
